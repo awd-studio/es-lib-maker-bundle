@@ -1,0 +1,23 @@
+services:
+
+    php-fpm:
+        container_name: ${DOCKER_SERVICE_NAME_PHP}
+        user: "${SYS_USER_UID}:${SYS_USER_UID}"
+        build:
+            context: ./docker/php-fpm
+            args:
+                PHP_VERSION: ${PHP_VERSION}
+                SYS_USER_UID: ${SYS_USER_UID}
+                SYS_USER_GID: ${SYS_USER_GID}
+                SYS_USER_NAME: ${SYS_USER_NAME}
+                APP_WORK_DIR: ${APP_WORK_DIR}
+        volumes:
+            - ${APP_ROOT_DIR}:${APP_WORK_DIR}
+            - ./docker/php-fpm/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/php-fpm/conf.d:/usr/local/etc/php/conf.d
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        command:
+            - ${FASTCGI_PASS_HOST}
+        expose:
+            - ${FASTCGI_PASS_PORT}

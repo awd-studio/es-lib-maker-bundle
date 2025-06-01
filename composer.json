@@ -1,0 +1,201 @@
+{
+  "name": "awd-studio/es-lib-maker-bundle",
+  "description": "Symfony maker command to scaffold integration with AWD Event Sourcing library",
+  "license": "MIT",
+  "type": "symfony-bundle",
+  "keywords": [
+    "event-sourcing",
+    "library",
+    "php",
+    "domain-driven-design",
+    "es",
+    "symfony-maker"
+  ],
+  "authors": [
+    {
+      "name": "Anton Karpov",
+      "email": "awd.com.ua@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://github.com/awd-studio/es-lib-maker-bundle",
+  "support": {
+    "issues": "https://github.com/awd-studio/es-lib-maker-bundle/issues",
+    "source": "https://github.com/awd-studio/es-lib-maker-bundle"
+  },
+  "require": {
+    "php": ">=8.3",
+    "awd-studio/es-lib": "dev-master",
+    "symfony/framework-bundle": "^7.0"
+  },
+  "require-dev": {
+    "dg/bypass-finals": "^1.4",
+    "ergebnis/composer-normalize": "^2.45",
+    "phpspec/prophecy": "^1.20",
+    "phpspec/prophecy-phpunit": "^2.3",
+    "roave/security-advisories": "dev-latest",
+    "symfony/maker-bundle": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AwdEs\\EsLibMakerBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AwdEs\\EsLibMakerBundle\\Tests\\": "tests/",
+      "AwdEs\\EsLibMakerBundle\\Tests\\Integration\\": "tests/Integration/",
+      "AwdEs\\EsLibMakerBundle\\Tests\\Shared\\": "tests/Shared/",
+      "AwdEs\\EsLibMakerBundle\\Tests\\Unit\\": "tests/Unit/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.0-dev"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "@composer normalize"
+    ],
+    "post-update-cmd": [
+      "@composer normalize"
+    ],
+    "code-analyze": [
+      "@phpstan-analyse",
+      "@php-cs-fixer-dry",
+      "@php-cs-fixer-tests-dry",
+      "@rector-dry-run",
+      "@rector-tests-dry-run"
+    ],
+    "code-fix": [
+      "@php-cs-fixer-fix",
+      "@php-cs-fixer-tests-fix",
+      "@rector",
+      "@rector-tests"
+    ],
+    "dev-clear-cache": [
+      "@php-cs-fixer-clear-cache-all",
+      "@phpstan-clear-cache",
+      "@rector-clear-cache-all"
+    ],
+    "dev-install-php-cs-fixer": [
+      "mkdir -p tools/cache/php-cs-fixer",
+      "composer install --working-dir=tools/php-cs-fixer --prefer-dist --no-progress --no-interaction"
+    ],
+    "dev-install-phpstan": [
+      "mkdir -p tools/cache/phpstan",
+      "composer install --working-dir=tools/phpstan --prefer-dist --no-progress --no-interaction"
+    ],
+    "dev-install-phpunit": [
+      "mkdir -p tools/cache/phpunit",
+      "mkdir -p tools/logs",
+      "mkdir -p tools/report"
+    ],
+    "dev-install-rector": [
+      "mkdir -p tools/cache/rector",
+      "composer install --working-dir=tools/rector --prefer-dist --no-progress --no-interaction"
+    ],
+    "dev-tools-setup": [
+      "@dev-install-phpstan",
+      "@dev-install-php-cs-fixer",
+      "@dev-install-rector"
+    ],
+    "dev-tools-update": [
+      "@dev-update-phpstan",
+      "@dev-update-php-cs-fixer",
+      "@dev-update-rector"
+    ],
+    "dev-update-php-cs-fixer": [
+      "composer update --with-all-dependencies --working-dir=tools/php-cs-fixer --prefer-dist --no-progress --no-interaction"
+    ],
+    "dev-update-phpstan": [
+      "composer update --with-all-dependencies --working-dir=tools/phpstan --prefer-dist --no-progress --no-interaction"
+    ],
+    "dev-update-rector": [
+      "composer update --with-all-dependencies --working-dir=tools/rector --prefer-dist --no-progress --no-interaction"
+    ],
+    "php-cs-fixer-clear-cache": "rm -rf tools/cache/php-cs-fixer",
+    "php-cs-fixer-clear-cache-all": [
+      "@php-cs-fixer-clear-cache",
+      "@php-cs-fixer-tests-clear-cache"
+    ],
+    "php-cs-fixer-dry": "@php-cs-fixer-run fix --dry-run --diff",
+    "php-cs-fixer-fix": "@php-cs-fixer-run fix --diff",
+    "php-cs-fixer-run": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.php",
+    "php-cs-fixer-tests-clear-cache": "rm -rf tools/cache/php-cs-fixer-tests",
+    "php-cs-fixer-tests-dry": "@php-cs-fixer-tests-run fix --dry-run --diff",
+    "php-cs-fixer-tests-fix": "@php-cs-fixer-tests-run fix --diff",
+    "php-cs-fixer-tests-run": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer-tests.php",
+    "phpstan-analyse": "@phpstan-run analyse -v",
+    "phpstan-clear-cache": "rm -rf tools/cache/phpstan",
+    "phpstan-run": "tools/phpstan/vendor/bin/phpstan --configuration=tools/phpstan/phpstan.neon",
+    "phpunit": "vendor/bin/phpunit tests",
+    "rector": "@rector-process --config=tools/rector/rector.php",
+    "rector-clear-cache": "tools/rector/vendor/bin/rector process --config=tools/rector/rector-tests.php --clear-cache --dry-run",
+    "rector-clear-cache-all": [
+      "@rector-clear-cache",
+      "@rector-tests-clear-cache"
+    ],
+    "rector-dry-run": "@rector --dry-run",
+    "rector-process": "tools/rector/vendor/bin/rector process",
+    "rector-tests": "@rector-process --config=tools/rector/rector-tests.php",
+    "rector-tests-clear-cache": "tools/rector/vendor/bin/rector process --config=tools/rector/rector.php --clear-cache --dry-run",
+    "rector-tests-dry-run": "@rector-tests --dry-run",
+    "test": [
+      "@code-analyze",
+      "@phpunit"
+    ]
+  },
+  "scripts-aliases": {
+    "code-analyze": [
+      "ca"
+    ],
+    "code-fix": [
+      "cf"
+    ],
+    "dev-clear-cache": [
+      "dev-cc"
+    ],
+    "dev-tools-setup": [
+      "dev-setup",
+      "dev-i"
+    ],
+    "dev-tools-update": [
+      "dev-up",
+      "dev-u"
+    ],
+    "php-cs-fixer-clear-cache": [
+      "cs-cc"
+    ],
+    "php-cs-fixer-dry": [
+      "cs-dry",
+      "cs-check"
+    ],
+    "php-cs-fixer-fix": [
+      "cs-fix",
+      "cs"
+    ],
+    "phpstan-analyse": [
+      "phpstan",
+      "stan"
+    ],
+    "phpstan-clear-cache": [
+      "phpstan-cc"
+    ],
+    "rector-clear-cache": [
+      "rector-cc"
+    ],
+    "rector-clear-cache-all": [
+      "rector-cca"
+    ],
+    "rector-tests-clear-cache": [
+      "rector-tcc"
+    ]
+  }
+}

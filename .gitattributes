@@ -1,0 +1,35 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# These files are text and should be normalized (Convert crlf => lf)
+.gitattributes  text
+.gitignore      text
+.dockerignore   text
+.editorconfig   text
+Makefile        text
+*.md            text
+*.env           text
+*.yml           text
+*.yaml          text
+*.xml           text
+*.xml.*         text
+*.env.*         text
+*.php           text
+
+# Exclude files from exporting
+/.dockerignore      export-ignore
+/.editorconfig      export-ignore
+/.env               export-ignore
+/.gitattributes     export-ignore
+/.github            export-ignore
+/.gitignore         export-ignore
+/bin                export-ignore
+/build              export-ignore
+/compose.yaml       export-ignore
+/composer.lock      export-ignore
+/docker             export-ignore
+/Makefile           export-ignore
+/phpunit.xml.dist   export-ignore
+/tests              export-ignore
+/tools              export-ignore
+/var                export-ignore
