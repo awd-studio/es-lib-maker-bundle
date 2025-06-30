@@ -26,12 +26,14 @@ ES Lib Maker Bundle is part of the ES Lib ecosystem, designed to simplify the im
 composer require --dev awd-studio/es-lib-maker-bundle
 ```
 
-2. Register the bundle in your `config/bundles.php` for the dev environment only:
+The bundle will be automatically registered in your `config/bundles.php` for the dev environment.
+
+If the bundle is not registered automatically, you can register it manually by adding the following line to your `config/bundles.php` file:
 
 ```php
 return [
     // ...
-    AwdEs\EsLibMakerBundle\AwdEsMakerBundle::class => ['dev' => true],
+    AwdEs\EsLibMakerBundle\EsLibMakerBundle::class => ['dev' => true],
 ];
 ```
 
@@ -149,7 +151,7 @@ The ES Lib ecosystem includes the following projects:
 
 - [ES Lib](https://github.com/awd-studio/es-lib): Core library for Event Sourcing
 - [ES Lib Bundle](https://github.com/awd-studio/es-lib-bundle): Symfony bundle for the ES Lib library
-- [ES Lib Maker Bundle](https://github.com/awd-studio/es-lib-maker-bundle): This project, providing maker commands
+- [ES Lib Maker Bundle](https://github.com/awd-studio/es-lib-maker-bundle): This project, providing maker commands for Event Sourcing entities
 
 ## Contributing
 

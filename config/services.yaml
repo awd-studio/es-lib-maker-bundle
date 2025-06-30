@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # Auto-tag all MakingProcessorCase implementations
+    _instanceof:
+        AwdEs\EsLibMakerBundle\Maker\Processing\MakingProcessorCase:
+            tags:
+                - { name: 'awd_es.maker.processor.case' }
+
+    # Register all classes in the bundle namespace
+    AwdEs\EsLibMakerBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/EsLibMakerBundle.php'
+
+    # Explicitly register the maker command
+    AwdEs\EsLibMakerBundle\Maker\EsEntity\AwdEsEntityMaker:
+        tags:
+            - { name: maker.command }
+
+    # Register the processor service
+    AwdEs\EsLibMakerBundle\Maker\Processing\CasesMakingProcessor:
+        arguments:
+            - !tagged_iterator { tag: 'awd_es.maker.processor.case', index_by: 'key' }
+
+    # Register the shared services
+    AwdEs\EsLibMakerBundle\Maker\Shared\AggregateRootInteractor: ~

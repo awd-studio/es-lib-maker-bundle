@@ -59,6 +59,12 @@
       "ergebnis/composer-normalize": true
     }
   },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "7.0.*"
+    }
+  },
   "scripts": {
     "post-install-cmd": [
       "@composer normalize"
