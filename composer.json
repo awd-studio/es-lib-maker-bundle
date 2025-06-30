@@ -59,20 +59,6 @@
       "ergebnis/composer-normalize": true
     }
   },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "1.0-dev"
-    },
-    "symfony": {
-      "allow-contrib": false,
-      "require": "^7.0",
-      "docker": false,
-      "endpoint": ["https://raw.githubusercontent.com/symfony/recipes-contrib/flex/main/index.json"],
-      "bundles": {
-        "AwdEs\\EsLibMakerBundle\\AwdEsMakerBundle": ["dev"]
-      }
-    }
-  },
   "scripts": {
     "post-install-cmd": [
       "@composer normalize"

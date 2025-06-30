@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-final class AwdEsMakerBundle extends AbstractBundle
+final class EsLibMakerBundle extends AbstractBundle
 {
     #[\Override]
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
