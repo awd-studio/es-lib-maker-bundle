@@ -38,6 +38,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
         return $instance;
     }
 <?php } else { ?>
+    #[\Override]
     public function create(Id $id, <?php echo $main_value_type; ?> $new<?php echo ucfirst((string) $main_value_name); ?>, IDateTime $createdAt): <?php echo $entity_name; ?>
     {
         $instance = new <?php echo $entity_name; ?>($this->eventApplier);
