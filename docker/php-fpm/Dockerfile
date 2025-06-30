@@ -53,6 +53,9 @@ RUN docker-php-ext-configure opcache --enable-opcache \
 RUN rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Install Composer
+RUN mkdir ${APP_COMPOSER_DIR} && \
+    chown -R ${SYS_USER_NAME}:${SYS_USER_NAME} ${APP_COMPOSER_DIR} && \
+    chmod -R 755 ${APP_COMPOSER_DIR}
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN echo "alias c='composer'" >> /etc/bash.bashrc
 

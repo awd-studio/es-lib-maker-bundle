@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Set\ValueObject\SetList;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
 return RectorConfig::configure()
@@ -15,8 +15,9 @@ return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/../../tests',
     ])
+    ->withSets([SetList::DEAD_CODE])
     ->withPhpSets(php83: true)
-//    ->withAttributesSets(phpunit: true)
+    ->withAttributesSets(phpunit: true)
     ->withRules([
         DeclareStrictTypesRector::class
     ])

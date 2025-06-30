@@ -12,10 +12,10 @@ $finder = new PhpCsFixer\Finder();
 $finder
     ->in(__DIR__ . '/../../src')
     ->append([
-        __DIR__ . '/../../example',
         __DIR__ . '/*.php',
         __DIR__ . '../rector/*.php',
     ])
+    ->notName(['*.tpl.php'])
 ;
 
 $config

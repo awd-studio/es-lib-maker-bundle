@@ -1,0 +1,5 @@
+{
+    "bundles": {
+        "AwdEs\\EsLibMakerBundle\\AwdEsMakerBundle": ["dev"]
+    }
+}

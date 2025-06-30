@@ -15,12 +15,15 @@ return RectorConfig::configure()
     )
     ->withPaths([
         __DIR__ . '/../../src',
-        __DIR__ . '/../../example',
         __DIR__ . '/../php-cs-fixer/.php-cs-fixer.php',
         __DIR__ . '/../php-cs-fixer/.php-cs-fixer-tests.php',
         __DIR__ . '/rector.php',
         __DIR__ . '/rector-tests.php',
     ])
+    ->withSkip([
+        __DIR__ . '/../../src/**/*.tpl.php',
+    ])
+    ->withSets([SetList::DEAD_CODE])
     ->withPhpSets(php83: true)
     ->withRules([
         DeclareStrictTypesRector::class,
