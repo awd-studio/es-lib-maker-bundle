@@ -20,18 +20,18 @@ ES Lib Maker Bundle is part of the ES Lib ecosystem, designed to simplify the im
 
 ### Steps
 
-1. Require the bundle via Composer:
+1. Require the bundle via Composer as a dev dependency:
 
 ```bash
-composer require awd-studio/es-lib-maker-bundle
+composer require --dev awd-studio/es-lib-maker-bundle
 ```
 
-2. Register the bundle in your `config/bundles.php`:
+2. Register the bundle in your `config/bundles.php` for the dev environment only:
 
 ```php
 return [
     // ...
-    AwdEs\EsLibMakerBundle\AwdEsMakerBundle::class => ['all' => true],
+    AwdEs\EsLibMakerBundle\AwdEsMakerBundle::class => ['dev' => true],
 ];
 ```
 
