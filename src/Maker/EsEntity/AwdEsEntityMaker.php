@@ -78,9 +78,8 @@ final class AwdEsEntityMaker extends AbstractMaker
         $command->addOption(
             name: 'is-simple',
             shortcut: 's',
-            mode: InputOption::VALUE_OPTIONAL,
+            mode: InputOption::VALUE_NONE,
             description: 'If entity is simple - the value is of type "boolean" and name "isActive"',
-            default: null,
         );
 
         $command->addOption(
@@ -112,8 +111,7 @@ final class AwdEsEntityMaker extends AbstractMaker
         $entityName = str_replace([':', '/', '.'], '\\', $this->asString($input->getArgument('entity-name')));
         $aggregateRoot = $this->asString($input->getArgument('aggregate-root'));
         $machineName = $this->asString($input->getOption('machine-name'));
-        $isSimpleRaw = $input->getOption('is-simple');
-        $isSimple = null !== $isSimpleRaw && ((bool) $isSimpleRaw);
+        $isSimple = (bool) $input->getOption('is-simple');
         $isDeletable = (bool) $input->getOption('deletable');
         $isRestorable = (bool) $input->getOption('restorable');
         $mainValueType = true === $isSimple ? 'bool' : $this->asString($input->getOption('main-value-type'));
