@@ -12,11 +12,11 @@ use AwdEs\ValueObject\Id;
 
 interface <?php echo $class_name; ?>
 {
-<?php if ($is_simple) { ?>: ?>
+<?php if ($is_simple): ?>: ?>
     public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
 
     public function createAsInactive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
-<?php } else { ?>
+<?php else: ?>
     public function create(Id $id, <?php echo $main_value_type; ?> $new<?php echo ucfirst((string) $main_value_name); ?>, IDateTime $createdAt): <?php echo $entity_name; ?>;
-<?php } ?>
+<?php endif; ?>
 }

@@ -23,6 +23,8 @@ final readonly class EntityMakingConfig implements MakingConfig
         public MainValueConfig $mainValueConfig,
         public NamespaceConfig $namespaceConfig,
         string $machineName = '',
+        public bool $isDeletable = false,
+        public bool $isRestorable = false,
     ) {
         $cleanedEntityName = trim($rawEntityName, '\\');
 

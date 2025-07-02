@@ -19,7 +19,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
         private EventApplier $eventApplier,
     ) {}
 
-<?php if ($is_simple) { ?>: ?>
+<?php if ($is_simple): ?>: ?>
     #[\Override]
     public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
     {
@@ -37,7 +37,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
 
         return $instance;
     }
-<?php } else { ?>
+<?php else: ?>
     #[\Override]
     public function create(Id $id, <?php echo $main_value_type; ?> $new<?php echo ucfirst((string) $main_value_name); ?>, IDateTime $createdAt): <?php echo $entity_name; ?>
     {
@@ -46,5 +46,5 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
 
         return $instance;
     }
-<?php } ?>
+<?php endif; ?>
 }

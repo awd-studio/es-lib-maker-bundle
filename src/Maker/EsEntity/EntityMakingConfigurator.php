@@ -23,6 +23,8 @@ final readonly class EntityMakingConfigurator
         string $machineName,
         string $mainValueType,
         string $mainValueName,
+        bool $isDeletable,
+        bool $isRestorable,
     ): EntityMakingConfig {
         $mainValueConfig = MainValueConfig::fromRawType($mainValueType, $mainValueName);
 
@@ -32,6 +34,6 @@ final readonly class EntityMakingConfigurator
             $nsConfig = ChildEntityNamespaceConfig::fromRawEntityNameAndAggregateRoot($entityName, $aggregateRoot, $this->namespacePrefix);
         }
 
-        return new EntityMakingConfig($entityName, $aggregateRoot, $mainValueConfig, $nsConfig, $machineName);
+        return new EntityMakingConfig($entityName, $aggregateRoot, $mainValueConfig, $nsConfig, $machineName, $isDeletable, $isRestorable);
     }
 }

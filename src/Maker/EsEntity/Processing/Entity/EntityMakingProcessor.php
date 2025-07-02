@@ -31,8 +31,8 @@ final readonly class EntityMakingProcessor implements MakingProcessorCase
             'is_simple' => $config->mainValueConfig->isSimple(),
             'main_value_type' => $config->mainValueConfig->type,
             'main_value_name' => $config->mainValueConfig->name,
-            'is_deletable' => false,
-            'is_restorable' => false,
+            'is_deletable' => $config->isDeletable,
+            'is_restorable' => $config->isRestorable,
         ]);
     }
 }

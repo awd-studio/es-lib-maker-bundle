@@ -30,9 +30,9 @@ final readonly class EventGeneralMakingProcessor implements MakingProcessorCase
 
         $ns = $config->namespaceConfig;
 
-        $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH . '\\';
+        $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH;
 
-        $baseEventFqn = $domainNs . $config->classShortName;
+        $baseEventFqn = $domainNs;
         $baseEventDetails = $generator->createClassNameDetails($baseEventFqn, '', 'Event');
 
         $generator->generateClass($baseEventDetails->getFullName(), $this->pathTplBaseEvent, [
@@ -41,7 +41,7 @@ final readonly class EventGeneralMakingProcessor implements MakingProcessorCase
             'main_value_name' => $config->mainValueConfig->name,
         ]);
 
-        $wasCreatedFqn = $domainNs . $config->classShortName;
+        $wasCreatedFqn = $domainNs;
         $wasCreatedDetails = $generator->createClassNameDetails($wasCreatedFqn, '', 'WasCreated');
 
         $generator->generateClass($wasCreatedDetails->getFullName(), $this->pathTplWasCreated, [

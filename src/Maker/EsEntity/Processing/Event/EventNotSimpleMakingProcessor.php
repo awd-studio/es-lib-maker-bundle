@@ -31,9 +31,9 @@ final readonly class EventNotSimpleMakingProcessor implements MakingProcessorCas
         }
 
         $ns = $config->namespaceConfig;
-        $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH . '\\';
+        $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH;
 
-        $wasChangedFqn = $domainNs . $config->classShortName;
+        $wasChangedFqn = $domainNs;
         $wasChangedDetails = $generator->createClassNameDetails($wasChangedFqn, '', 'WasChanged');
         $generator->generateClass($wasChangedDetails->getFullName(), $this->pathTplWasActivated, [
             'main_value_type' => $config->mainValueConfig->type,

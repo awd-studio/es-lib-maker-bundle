@@ -15,11 +15,11 @@ abstract readonly class <?php echo $class_name; ?> implements EntityEvent
 {
     public function __construct(
         public Id $id,
-<?php if (true === $is_simple) { ?>
+<?php if (true === $is_simple): ?>
         public bool $isActive,
-<?php } else { ?>
+<?php else: ?>
         public <?php echo $main_value_type; ?> $<?php echo $main_value_name; ?>,
-<?php } ?>
+<?php endif; ?>
         public IDateTime $occurredAt,
         public Version $version,
     ) {}

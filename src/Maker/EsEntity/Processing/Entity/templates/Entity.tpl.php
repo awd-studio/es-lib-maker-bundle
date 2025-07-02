@@ -7,43 +7,43 @@ declare(strict_types=1);
 namespace <?php echo $namespace; ?>;
 
 use Awd\ValueObject\IDateTime;
-<?php if (true === $is_self_root) { ?>
+<?php if (true === $is_self_root): ?>
 use AwdEs\Aggregate\AggregateRoot;
-<?php } else { ?>
+<?php else: ?>
 <?php echo 'use ' . $agg_root_full . ";\n"; ?>
-<?php } ?>
+<?php endif; ?>
 use AwdEs\Aggregate\Entity;
 use AwdEs\Attribute\AsAggregateEntity;
 use AwdEs\Attribute\EventHandler;
 use AwdEs\ValueObject\Id;
 
-#[AsAggregateEntity(name: '<?php echo $machine_name; ?><?php echo $is_self_root ? '_ROOT' : ''; ?>', rootFqn: <?php echo $agg_root_short; ?>::class)]
+#[AsAggregateEntity(name: '<?php echo $machine_name; ?>', rootFqn: <?php echo $agg_root_short; ?>::class)]
 final class <?php echo $class_name; ?> extends Entity<?php echo $is_self_root ? ' implements AggregateRoot' : ''; ?>
 {
     public Id $id;
-<?php if (true === $is_simple) { ?>
+<?php if (true === $is_simple): ?>
     public bool $isActive;
-<?php } else { ?>
+<?php else: ?>
     public <?php echo $main_value_type; ?> $<?php echo $main_value_name; ?>;
-<?php } ?>
+<?php endif; ?>
     public IDateTime $createdAt;
     public IDateTime $changedAt;
-<?php if (true === $is_deletable) { ?>
+<?php if (true === $is_deletable): ?>
     public ?IDateTime $deletedAt = null;
-<?php } ?>
+<?php endif; ?>
 
     #[EventHandler(Event\<?php echo $class_name; ?>WasCreated::class)]
     public function on<?php echo $class_name; ?>WasCreated(Event\<?php echo $class_name; ?>WasCreated $event): void
     {
         $this->id = $event->id;
-<?php if (true === $is_simple) { ?>
+<?php if (true === $is_simple): ?>
         $this->isActive = $event->isActive;
-<?php } ?>
+<?php endif; ?>
         $this->createdAt = $event->occurredAt;
         $this->changedAt = $event->occurredAt;
     }
 
-<?php if (true === $is_simple) { ?>
+<?php if (true === $is_simple): ?>
     public function initAsActive(Id $id, IDateTime $createdAt): void
     {
         if (true === $this->isInitialized()) {
@@ -93,7 +93,7 @@ final class <?php echo $class_name; ?> extends Entity<?php echo $is_self_root ? 
         $this->isActive = false;
         $this->changedAt = $event->occurredAt;
     }
-<?php } else { ?>
+<?php else: ?>
     public function init(Id $id, <?php echo $main_value_type; ?> $<?php echo $main_value_name; ?>, IDateTime $createdAt): void
     {
         if (true === $this->isInitialized()) {
@@ -105,11 +105,11 @@ final class <?php echo $class_name; ?> extends Entity<?php echo $is_self_root ? 
 
     public function change(<?php echo $main_value_type; ?> $new<?php echo mb_ucfirst($main_value_name); ?>, IDateTime $changedAt): void
     {
-<?php if ('IDateTime' === $main_value_type) { ?>
+<?php if ('IDateTime' === $main_value_type): ?>
         if (true === $this-><?php echo $main_value_name; ?>->isEqual($new<?php echo mb_ucfirst($main_value_name); ?>)) {
-<?php } else { ?>
+<?php else: ?>
         if ($this-><?php echo $main_value_name; ?> === $new<?php echo mb_ucfirst($main_value_name); ?>) {
-<?php } ?>
+<?php endif; ?>
             return;
         }
 
@@ -122,7 +122,43 @@ final class <?php echo $class_name; ?> extends Entity<?php echo $is_self_root ? 
         $this-><?php echo $main_value_name; ?> = $event-><?php echo $main_value_name; ?>;
         $this->changedAt = $event->occurredAt;
     }
-<?php } ?>
+<?php endif; ?>
+<?php if (true === $is_deletable): ?>
+
+    public function markDeleted(IDateTime $deletedAt): void
+    {
+        if (null !== $this->deletedAt) {
+            return;
+        }
+
+        $this->recordThat(new Event\<?php echo $class_name; ?>WasDeleted($this->id, $this-><?php echo $main_value_name; ?>, $deletedAt, $this->version->next()));
+    }
+
+    #[EventHandler(Event\<?php echo $class_name; ?>WasDeleted::class)]
+    public function on<?php echo $class_name; ?>WasDeleted(Event\<?php echo $class_name; ?>WasDeleted $event): void
+    {
+        $this->changedAt = $event->occurredAt;
+        $this->deletedAt = $event->occurredAt;
+    }
+<?php if (true === $is_restorable): ?>
+
+    public function restore(IDateTime $restoredAt): void
+    {
+        if (null === $this->deletedAt) {
+            return;
+        }
+
+        $this->recordThat(new Event\<?php echo $class_name; ?>WasRestored($this->id, $this-><?php echo $main_value_name; ?>, $restoredAt, $this->version->next()));
+    }
+
+    #[EventHandler(Event\<?php echo $class_name; ?>WasRestored::class)]
+    public function on<?php echo $class_name; ?>WasRestored(Event\<?php echo $class_name; ?>WasRestored $event): void
+    {
+        $this->changedAt = $event->occurredAt;
+        $this->deletedAt = null;
+    }
+<?php endif; ?>
+<?php endif; ?>
 
     #[\Override]
     public function aggregateId(): Id
