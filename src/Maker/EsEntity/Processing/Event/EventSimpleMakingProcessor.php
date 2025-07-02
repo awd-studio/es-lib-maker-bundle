@@ -41,10 +41,10 @@ final readonly class EventSimpleMakingProcessor implements MakingProcessorCase
         $ns = $config->namespaceConfig;
         $classNameWithoutSuffix = $ns->domain() . '\\' . self::SUFFIX_PATH . '\\' . $config->classShortName;
 
-        $wasActivatedDetails = $generator->createClassNameDetails($classNameWithoutSuffix, '', 'WasActivated');
+        $wasActivatedDetails = $generator->createClassNameDetails($classNameWithoutSuffix . 'WasActivated', '');
         $generator->generateClass($wasActivatedDetails->getFullName(), $this->pathTplWasActivated, $activationVars);
 
-        $wasDeactivatedDetails = $generator->createClassNameDetails($classNameWithoutSuffix, '', 'WasDeactivated');
+        $wasDeactivatedDetails = $generator->createClassNameDetails($classNameWithoutSuffix . 'WasDeactivated', '');
         $generator->generateClass($wasDeactivatedDetails->getFullName(), $this->pathTplWasDeactivated, $activationVars);
     }
 }

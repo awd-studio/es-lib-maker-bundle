@@ -35,12 +35,12 @@ final readonly class ExceptionMakingProcessor implements MakingProcessorCase
         $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH . '\\';
 
         $notFoundFqn = $domainNs . $config->classShortName;
-        $notFoundDetails = $generator->createClassNameDetails($notFoundFqn, '', self::SUFFIX_NOT_FOUND);
+        $notFoundDetails = $generator->createClassNameDetails($notFoundFqn . self::SUFFIX_NOT_FOUND, '');
 
         $generator->generateClass($notFoundDetails->getFullName(), $this->pathTplPersistenceError);
 
         $persistenceErrorFqn = $domainNs . $config->classShortName;
-        $persistenceErrorDetails = $generator->createClassNameDetails($persistenceErrorFqn, '', self::SUFFIX_PERSISTENCE_ERROR);
+        $persistenceErrorDetails = $generator->createClassNameDetails($persistenceErrorFqn . self::SUFFIX_PERSISTENCE_ERROR, '');
         $generator->generateClass($persistenceErrorDetails->getFullName(), $this->pathTplNotFound);
     }
 }

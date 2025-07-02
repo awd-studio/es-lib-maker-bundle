@@ -32,7 +32,7 @@ final readonly class RepositoryMakingProcessor implements MakingProcessorCase
         $entityDetails = $generator->createClassNameDetails($config->unprocessedFqn, '', '');
 
         $repoInterfaceFqn = $ns->domain() . '\Repository\\' . $config->classShortName;
-        $interfaceDetails = $generator->createClassNameDetails($repoInterfaceFqn, '', 'Repository');
+        $interfaceDetails = $generator->createClassNameDetails($repoInterfaceFqn . 'Repository', '');
         $generator->generateClass($interfaceDetails->getFullName(), $this->pathTplInterface, [
             'ns_domain' => $ns->domain(),
             'entity_name' => $config->classShortName,
@@ -41,7 +41,7 @@ final readonly class RepositoryMakingProcessor implements MakingProcessorCase
         ]);
 
         $repoImplementationFqn = $ns->infrastructure() . '\Repository\UoW' . $config->classShortName;
-        $implementationDetails = $generator->createClassNameDetails($repoImplementationFqn, '', 'Repository');
+        $implementationDetails = $generator->createClassNameDetails($repoImplementationFqn . 'Repository', '');
         $generator->generateClass($implementationDetails->getFullName(), $this->pathTplImplementation, [
             'ns_domain' => $ns->domain(),
             'entity_name' => $config->classShortName,
