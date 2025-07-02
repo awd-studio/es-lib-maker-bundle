@@ -69,10 +69,24 @@ final readonly class AggregateRootInteractor
             }
         }
 
-        if (false === \in_array($aggregateRootValue, array_unique(array_values($arList)), true)) {
-            throw new InvalidArgumentException(\sprintf('The aggregate root "%s" is not a valid entity.', $aggregateRootValue));
+        // Direct match in arList
+        if (\array_key_exists($aggregateRootValue, $arList)) {
+            return $arList[$aggregateRootValue];
         }
 
-        return $aggregateRootValue;
+        // Try to find a match by FQN, machine name, or short name
+        foreach ($arList as $key => $value) {
+            // Check if the provided value matches the FQN
+            if ($value === $aggregateRootValue) {
+                return $value;
+            }
+
+            // Check if the provided value matches the machine name or short name
+            if ($key === $aggregateRootValue) {
+                return $value;
+            }
+        }
+
+        throw new InvalidArgumentException(\sprintf('The aggregate root "%s" is not a valid entity.', $aggregateRootValue));
     }
 }
