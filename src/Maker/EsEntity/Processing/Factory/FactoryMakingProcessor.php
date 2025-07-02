@@ -34,7 +34,7 @@ final readonly class FactoryMakingProcessor implements MakingProcessorCase
         $repoInterfaceFqn = $ns->domain() . '\Repository\\' . $config->classShortName;
         $interfaceDetails = $generator->createClassNameDetails($repoInterfaceFqn, '', 'Factory');
         $generator->generateClass($interfaceDetails->getFullName(), $this->pathTplInterface, [
-            'is_simple' => MainValueConfig::TYPE_BOOL === $config->mainValueConfig->type,
+            'is_simple' => $config->mainValueConfig->isSimple(),
             'entity_name' => $config->classShortName,
             'entity_fqn' => $entityDetails->getFullName(),
             'main_value_type' => $config->mainValueConfig->type,
@@ -44,7 +44,7 @@ final readonly class FactoryMakingProcessor implements MakingProcessorCase
         $repoImplementationFqn = $ns->infrastructure() . '\Repository\Direct' . $config->classShortName;
         $implementationDetails = $generator->createClassNameDetails($repoImplementationFqn, '', 'Factory');
         $generator->generateClass($implementationDetails->getFullName(), $this->pathTplImplementation, [
-            'is_simple' => MainValueConfig::TYPE_BOOL === $config->mainValueConfig->type,
+            'is_simple' => $config->mainValueConfig->isSimple(),
             'entity_name' => $config->classShortName,
             'entity_fqn' => $entityDetails->getFullName(),
             'factory_interface_fqn' => $interfaceDetails->getFullName(),

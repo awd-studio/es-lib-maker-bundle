@@ -12,7 +12,7 @@ use AwdEs\ValueObject\Id;
 
 interface <?php echo $class_name; ?>
 {
-<?php if ($is_simple): ?>: ?>
+<?php if (true === $is_simple): ?>
     public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
 
     public function createAsInactive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;

@@ -80,7 +80,7 @@ final class AwdEsEntityMaker extends AbstractMaker
             shortcut: 's',
             mode: InputOption::VALUE_OPTIONAL,
             description: 'If entity is simple - the value is of type "boolean" and name "isActive"',
-            default: false,
+            default: null,
         );
 
         $command->addOption(

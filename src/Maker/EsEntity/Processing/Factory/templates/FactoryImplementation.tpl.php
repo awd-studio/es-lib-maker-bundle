@@ -19,7 +19,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
         private EventApplier $eventApplier,
     ) {}
 
-<?php if ($is_simple): ?>: ?>
+<?php if (true === $is_simple): ?>
     #[\Override]
     public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
     {
