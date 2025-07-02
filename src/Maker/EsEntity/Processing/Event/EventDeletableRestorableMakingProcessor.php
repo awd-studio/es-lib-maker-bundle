@@ -39,18 +39,16 @@ final readonly class EventDeletableRestorableMakingProcessor implements MakingPr
         ];
 
         $ns = $config->namespaceConfig;
-        $domainNs = $ns->domain() . '\\' . self::SUFFIX_PATH;
+        $classNameWithoutSuffix = $ns->domain() . '\\' . self::SUFFIX_PATH . '\\' . $config->classShortName;
 
-        $wasDeletedFqn = $domainNs;
-        $wasDeletedDetails = $generator->createClassNameDetails($wasDeletedFqn, '', 'WasDeleted');
+        $wasDeletedDetails = $generator->createClassNameDetails($classNameWithoutSuffix, '', 'WasDeleted');
         $generator->generateClass($wasDeletedDetails->getFullName(), $this->pathTplWasDeleted, $vars);
 
         if (false === $config->isRestorable) {
             return;
         }
 
-        $wasRestoredFqn = $domainNs;
-        $wasRestoredDetails = $generator->createClassNameDetails($wasRestoredFqn, '', 'WasRestored');
+        $wasRestoredDetails = $generator->createClassNameDetails($classNameWithoutSuffix, '', 'WasRestored');
         $generator->generateClass($wasRestoredDetails->getFullName(), $this->pathTplWasRestored, $vars);
     }
 }
