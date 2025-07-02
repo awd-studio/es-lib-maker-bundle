@@ -21,7 +21,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
 
 <?php if (true === $is_simple): ?>
     #[\Override]
-    public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
+    public function createAsActive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>
     {
         $instance = new <?php echo $entity_name; ?>($this->eventApplier);
         $instance->initAsActive($id, $createdAt);
@@ -30,7 +30,7 @@ final readonly class <?php echo $class_name; ?> implements <?php echo $entity_na
     }
 
     #[\Override]
-    public function createAsInactive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>;
+    public function createAsInactive(Id $id, IDateTime $createdAt): <?php echo $entity_name; ?>
     {
         $instance = new <?php echo $entity_name; ?>($this->eventApplier);
         $instance->initAsInactive($id, $createdAt);
