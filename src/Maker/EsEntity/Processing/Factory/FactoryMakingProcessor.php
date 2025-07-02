@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AwdEs\EsLibMakerBundle\Maker\EsEntity\Processing\Factory;
 
 use AwdEs\EsLibMakerBundle\Maker\EsEntity\Processing\EntityMakingConfig;
-use AwdEs\EsLibMakerBundle\Maker\EsEntity\Processing\MainValueConfig;
 use AwdEs\EsLibMakerBundle\Maker\Processing\MakingConfig;
 use AwdEs\EsLibMakerBundle\Maker\Processing\MakingProcessorCase;
 use Symfony\Bundle\MakerBundle\Generator;

@@ -112,7 +112,8 @@ final class AwdEsEntityMaker extends AbstractMaker
         $entityName = str_replace([':', '/', '.'], '\\', $this->asString($input->getArgument('entity-name')));
         $aggregateRoot = $this->asString($input->getArgument('aggregate-root'));
         $machineName = $this->asString($input->getOption('machine-name'));
-        $isSimple = (bool) $input->getOption('is-simple');
+        $isSimpleRaw = $input->getOption('is-simple');
+        $isSimple = null !== $isSimpleRaw && ((bool) $isSimpleRaw);
         $isDeletable = (bool) $input->getOption('deletable');
         $isRestorable = (bool) $input->getOption('restorable');
         $mainValueType = true === $isSimple ? 'bool' : $this->asString($input->getOption('main-value-type'));
